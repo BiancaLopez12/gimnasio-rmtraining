@@ -60,7 +60,6 @@ export default function RMTrainingApp() {
   const [showMenu, setShowMenu] = useState<boolean>(false)
   
   // ESTADOS para manejar la autenticación (userData corregido)
-  // Eliminamos 'any' para forzar el tipado correcto
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [userData, setUserData] = useState<UserModel | null>(null) 
   const [showLogin, setShowLogin] = useState<boolean>(false)
@@ -81,9 +80,8 @@ export default function RMTrainingApp() {
   useEffect(() => {
     setIsLoggedIn(pb.authStore.isValid);
     if (pb.authStore.isValid && pb.authStore.model) {
-      // CORRECCIÓN en useEffect: Usamos 'as unknown as UserModel' para asegurar la conversión
-      // desde un tipo genérico (`RecordModel` dentro de `authStore.model`)
-      setUserData(pb.authStore.record as unknown as UserModel); 
+      // Usamos 'as unknown as UserModel' para manejar la conversión de tipos
+      setUserData(pb.authStore.model as unknown as UserModel); 
     }
   }, [pb, setIsLoggedIn, setUserData]); 
 
@@ -100,13 +98,12 @@ export default function RMTrainingApp() {
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      // CORRECCIÓN 2: Tipamos la respuesta con <UserModel>
-      const authData: RecordAuthResponse<UserModel> = await pb.collection('users').authWithPassword( 
+      // Tipamos la respuesta con <UserModel>
+      const authData: RecordAuthResponse<UserModel> = await pb.collection('registro').authWithPassword( 
         loginForm.username, 
         loginForm.password
       );
       setIsLoggedIn(true);
-      // Ya no se requiere 'as UserModel'
       setUserData(authData.record); 
       setShowLogin(false);
       setCurrentScreen("home");
@@ -123,26 +120,27 @@ export default function RMTrainingApp() {
     try {
       const { username, password, passwordConfirm, name, lastname, email } = registerForm;
       
+      // Validación de contraseñas (parte de la validación de formularios)
       if (password !== passwordConfirm) {
         alert('Las contraseñas no coinciden.');
         return;
       }
       
-      // La creación y la autenticación van tipadas con <UserModel>
-      const record = await pb.collection('users').create<UserModel>({ 
-        username, 
-        password, 
-        passwordConfirm, 
-        name, 
-        lastname, 
-        email 
+      // Esta línea es la clave: indica la colección ('registro') y los datos a guardar.
+      // PocketBase se encarga de hashear la contraseña.
+      const record = await pb.collection('registro').create<UserModel>({ 
+          username, 
+          password, 
+          passwordConfirm, 
+          name, 
+          lastname, 
+          email 
       });
       
-      // CORRECCIÓN 3: Tipamos la respuesta de autenticación
-      const authData: RecordAuthResponse<UserModel> = await pb.collection('users').authWithPassword(username, password);
+      // Iniciar sesión automáticamente después del registro
+      const authData: RecordAuthResponse<UserModel> = await pb.collection('registro').authWithPassword(username, password);
       
       setIsLoggedIn(true);
-      // Ya no se requiere 'as UserModel'
       setUserData(authData.record); 
       setShowRegister(false);
       setCurrentScreen("home");
