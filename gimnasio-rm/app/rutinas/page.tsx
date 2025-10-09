@@ -1,56 +1,85 @@
-import { User, Menu, Instagram, Mail } from "lucide-react";
+import { Menu, User } from "lucide-react"
+import Image from "next/image"
 
-export default function RutinasPage() {
+export default function RMTrainingPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-[#181b2e] px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center relative">
-            <div className="w-8 h-8 border-2 border-white rounded-full"></div>
-            <div className="absolute top-1 right-1 w-3 h-3 bg-red-500 rounded-full border border-white"></div>
-          </div>
-          <div className="text-white">
-            <div className="text-red-500 font-bold text-xl">RM</div>
-            <div className="text-white text-sm">training</div>
+        {/* Logo Left */}
+        <div className="flex items-center">
+          <div className="w-24 h-24 relative">
+            <Image src="/red-and-black-circular-gym-logo-with-rm-letters.jpg" alt="RM Logo" width={96} height={96} className="object-contain" />
           </div>
         </div>
 
         {/* Center Logo */}
-        <div className="absolute left-1/2 transform -translate-x-1/2">
+        <div className="absolute left-1/2 -translate-x-1/2">
           <div className="text-center">
-            <div className="text-red-500 font-bold text-3xl">RM</div>
-            <div className="text-white text-sm tracking-wider">training</div>
+            <h1 className="text-[#ff0066] text-5xl font-bold tracking-tight leading-none">RM</h1>
+            <p className="text-[#ff0066] text-xl font-medium tracking-wide">training</p>
           </div>
         </div>
 
-        {/* Right Navigation */}
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-            <User className="w-6 h-6 text-[#181b2e]" />
-          </div>
-          <Menu className="w-8 h-8 text-white" />
+        {/* Right Icons */}
+        <div className="flex items-center gap-6">
+          <button className="text-white hover:text-[#ff0066] transition-colors">
+            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
+              <User className="w-6 h-6 text-[#181b2e]" />
+            </div>
+          </button>
+          <button className="text-white hover:text-[#ff0066] transition-colors">
+            <Menu className="w-10 h-10" strokeWidth={3} />
+          </button>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center bg-[#837a88] p-4">
-        <h2 className="text-[#1e1e1e] text-3xl font-bold mb-6">RUTINAS</h2>
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-KjnS5Pr6C5TKDtagfzxByMhyjtttfl.png"
-          alt="Rutinas"
-          className="w-full max-w-4xl h-auto object-cover rounded-lg shadow-lg"
-        />
-      </main>
+      <main className="flex-1 bg-[#837a88] px-8 py-12">
+        {/* Title */}
+        <h2 className="text-center text-5xl font-light tracking-[0.3em] mb-12 text-[#1e1e1e]">RUTINAS</h2>
 
-      {/* Footer */}
-      <footer className="bg-[#837a88] px-6 py-4">
-        <div className="flex items-center justify-center gap-6">
-          <Instagram className="w-6 h-6 text-white" />
-          <Mail className="w-6 h-6 text-white" />
+        {/* Image Grid */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Row 1 */}
+          <div className="bg-[#d9d9d9] p-6 shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <Image src="/group-of-people-doing-push-up-exercises-in-gym.jpg" alt="Group workout" fill className="object-cover" />
+            </div>
+          </div>
+
+          <div className="bg-[#d9d9d9] p-6 shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <Image src="/people-using-weight-training-machines-in-gym.jpg" alt="Weight training" fill className="object-cover" />
+            </div>
+          </div>
+
+          <div className="bg-[#d9d9d9] p-6 shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <Image src="/group-of-people-doing-push-up-exercises-in-gym.jpg" alt="Group workout" fill className="object-cover" />
+            </div>
+          </div>
+
+          {/* Row 2 */}
+          <div className="bg-[#d9d9d9] p-6 shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <Image src="/people-using-weight-training-machines-in-gym.jpg" alt="Weight training" fill className="object-cover" />
+            </div>
+          </div>
+
+          <div className="bg-[#d9d9d9] p-6 shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <Image src="/group-of-people-doing-push-up-exercises-in-gym.jpg" alt="Group workout" fill className="object-cover" />
+            </div>
+          </div>
+
+          <div className="bg-[#d9d9d9] p-6 shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <Image src="/people-using-weight-training-machines-in-gym.jpg" alt="Weight training" fill className="object-cover" />
+            </div>
+          </div>
         </div>
-      </footer>
+      </main>
     </div>
-  );
+  )
 }
