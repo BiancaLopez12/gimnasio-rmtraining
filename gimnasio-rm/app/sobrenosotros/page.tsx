@@ -1,32 +1,120 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Menu, User } from "lucide-react";
 
-export default function HomePage() {
+export default function SobreNosotrosPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const screens = [
+    { name: "Inicio", route: "/inicio" },
+    { name: "Contactos", route: "/contactos" },
+    { name: "Sobre Nosotros", route: "/sobrenosotros" },
+    { name: "Horarios Y Clases", route: "/horarios" },
+    { name: "Rutinas", route: "/rutinas" },
+    { name: "Merchandising", route: "/merchandising" },
+  ];
+
   return (
-    <main className="min-h-screen bg-[#000000]">
-      <div className="relative h-[calc(100vh-64px)]">
-        <img src="/modern-gym-interior-with-treadmills-and-equipment.jpg" alt="RM Training Gym" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
-          <h1 className="text-[#ffffff] text-4xl md:text-6xl font-bold mb-4 tracking-wide">RM TRAINING</h1>
-          <p className="text-[#d9d9d9] text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Tu destino para el entrenamiento profesional y resultados excepcionales
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="/schedule">
-              
-            </Link>
-            <Link href="/about">
-              <Button
-                variant="outline"
-                className="border-[#ffffff] text-[#ffffff] hover:bg-[#ffffff]/10 px-8 py-6 text-lg bg-transparent"
-              >
-                Conocer Más
-              </Button>
-            </Link>
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <header className="bg-[#181b2e] px-6 py-4 flex items-center justify-between relative">
+        {/* Logo Left */}
+        <div className="flex items-center">
+          <div className="w-24 h-24 relative">
+            <Image
+              src="/red-and-black-circular-gym-logo-with-rm-letters.jpg"
+              alt="RM Logo"
+              width={96}
+              height={96}
+              className="object-contain"
+            />
           </div>
         </div>
-      </div>
-    </main>
-  )
+
+        {/* Center Logo */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <div className="text-center">
+            <h1 className="text-[#ff0066] text-5xl font-bold tracking-tight leading-none">
+              RM
+            </h1>
+            <p className="text-[#ff0066] text-xl font-medium tracking-wide">
+              training
+            </p>
+          </div>
+        </div>
+
+        {/* Right Icons */}
+        <div className="flex items-center gap-4 relative">
+          <button
+            className="text-white hover:text-[#ff0066] transition-colors"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <Menu className="w-10 h-10" strokeWidth={3} />
+          </button>
+
+          {/* Menú desplegable */}
+          {menuOpen && (
+            <div className="absolute right-0 top-full mt-2 w-48 bg-[#181b2e] rounded-lg shadow-lg z-20 flex flex-col">
+              {screens.map((screen, index) => (
+                <Link key={index} href={screen.route}>
+                  <button
+                    className="w-full px-4 py-3 text-left text-white hover:bg-[#837a88]/50 border-b border-[#837a88]/20 last:border-b-0"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {screen.name}
+                  </button>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 relative">
+        {/* Imagen de fondo */}
+        <div className="w-full h-[calc(100vh-80px)] relative">
+          <Image
+            src="/imagenfondorm.svg"
+            alt="Modern gym interior with treadmills and weight equipment"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        {/* Contenido Sobre Nosotros encima de la imagen */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 space-y-6 z-10 max-w-3xl mx-auto">
+          <h2 className="text-white text-4xl md:text-5xl font-bold tracking-wide">
+            SOBRE NOSOTROS
+          </h2>
+          <p className="text-white text-lg md:text-xl">
+            Somos un centro de entrenamiento formado por profesores de Educación
+            física en el cual ofrecemos clases de entrenamiento funcional y
+            musculación para todo tipo de personas.
+          </p>
+          <p className="text-white text-base md:text-lg">
+            Con un objetivo primordial: mejorar la salud y calidad de vida
+          </p>
+          <p className="text-white text-base md:text-lg">
+            En nuestro centro de entrenamiento, nos enfocamos en la seguridad y
+            el bienestar de nuestros alumnos. Los entrenadores están capacitados
+            para adaptar las clases a tus necesidades y objetivos individuales,
+            asegurándonos de que te sientas cómodo y motivado en todo momento.
+          </p>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-[#181b2e] text-center text-sm py-4 border-t border-[#ff0066]">
+        <p className="text-gray-400">
+          © {new Date().getFullYear()} RM Training. Todos los derechos
+          reservados.
+        </p>
+      </footer>
+    </div>
+  );
 }
