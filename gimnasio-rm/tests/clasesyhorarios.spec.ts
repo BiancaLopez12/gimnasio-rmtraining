@@ -6,3 +6,4 @@ test.describe("Yo como usuario interesado deseo visualizar horarios para poder c
         await expect(page.getByRole('heading', { name: 'FUNCIONAL' }).first()).toBeVisible();
       });
 })
+

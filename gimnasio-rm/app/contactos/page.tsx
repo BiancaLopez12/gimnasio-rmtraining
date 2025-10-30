@@ -18,7 +18,7 @@ export default function ContactosPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#181b2e] text-white">
       {/* Header */}
-      <header className="bg-[#181b2e] px-6 py-4 flex items-center justify-between relative border-b border-[#ff0066]">
+      <header className="bg-[#181b2e] px-6 py-6 flex items-center justify-end relative border-b border-[#ff0066]">
         {/* Center Logo */}
         <div className="absolute left-1/2 -translate-x-1/2 text-center">
           <h1 className="text-[#ff0066] text-5xl font-bold leading-none">RM</h1>
@@ -75,13 +75,7 @@ export default function ContactosPage() {
         {/* Contenido encima de la imagen */}
         <div className="relative z-10 flex flex-col items-center space-y-8 max-w-md w-full">
           <div className="w-24 h-24 relative">
-            <Image
-              src="/red-and-black-circular-gym-logo-with-rm-letters.jpg"
-              alt=""
-              width={96}
-              height={96}
-              className="object-contain"
-            />
+           
           </div>
 
           {/* Instagram */}

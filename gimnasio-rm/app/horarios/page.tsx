@@ -19,33 +19,7 @@ export default function RMTrainingPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-[#181b2e] px-8 py-6 flex items-center justify-between relative">
-        {/* Logo */}
-        <div className="flex items-center">
-          <div className="w-24 h-24">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="#ef4444"
-                strokeWidth="3"
-              />
-              <text
-                x="50"
-                y="92"
-                textAnchor="middle"
-                fill="#ef4444"
-                fontSize="16"
-                fontWeight="bold"
-              >
-                RM
-              </text>
-            </svg>
-          </div>
-        </div>
-
+      <header className="bg-[#181b2e] px-6 py-2 flex items-center justify-between relative">
         {/* Center Logo */}
         <div className="text-center">
           <div className="text-[#ef4444] font-bold text-6xl tracking-wider">

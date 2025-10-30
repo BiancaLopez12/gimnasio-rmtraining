@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, User } from "lucide-react";
+import { Menu, User, Star } from "lucide-react";
 
 export default function SobreNosotrosPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,16 +16,37 @@ export default function SobreNosotrosPage() {
     { name: "Merchandising", route: "/merchandising" },
   ];
 
+  // Testimonios tomados manualmente de Google
+  const testimonios = [
+    {
+      nombre: "Martina G.",
+      texto:
+        "Excelente ambiente y profesionales. Me ayudaron a mejorar mi estado físico y sentirme motivada cada día.",
+      estrellas: 5,
+    },
+    {
+      nombre: "Lucas R.",
+      texto:
+        "Muy buenos entrenadores, se adaptan a cada persona. Las clases son variadas y entretenidas.",
+      estrellas: 5,
+    },
+    {
+      nombre: "Valentina P.",
+      texto:
+        "El mejor gimnasio, siempre atentos y con muy buena energía. Super recomendable.",
+      estrellas: 5,
+    },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-[#181b2e] px-6 py-4 flex items-center justify-between relative">
-        {/* Logo Left */}
         <div className="flex items-center">
           <div className="w-24 h-24 relative">
             <Image
               src="/red-and-black-circular-gym-logo-with-rm-letters.jpg"
-              alt="RM Logo"
+              alt=""
               width={96}
               height={96}
               className="object-contain"
@@ -33,7 +54,6 @@ export default function SobreNosotrosPage() {
           </div>
         </div>
 
-        {/* Center Logo */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <div className="text-center">
             <h1 className="text-[#ff0066] text-5xl font-bold tracking-tight leading-none">
@@ -45,7 +65,6 @@ export default function SobreNosotrosPage() {
           </div>
         </div>
 
-        {/* Right Icons */}
         <div className="flex items-center gap-4 relative">
           <button
             className="text-white hover:text-[#ff0066] transition-colors"
@@ -54,13 +73,12 @@ export default function SobreNosotrosPage() {
             <Menu className="w-10 h-10" strokeWidth={3} />
           </button>
 
-          {/* Menú desplegable */}
           {menuOpen && (
             <div className="absolute right-0 top-full mt-2 w-48 bg-[#181b2e] rounded-lg shadow-lg z-20 flex flex-col">
               {screens.map((screen, index) => (
                 <Link key={index} href={screen.route}>
                   <button
-                    className="w-full px-4 py-3 text-left text-white hover:bg-[#837a88]/50 border-b border-[#837a88]/20 last:border-b-0"
+                    className="w-full px-4 py-3 text-left text-black hover:bg-[#837a88]/50 border-b border-[#837a88]/20 last:border-b-0"
                     onClick={() => setMenuOpen(false)}
                   >
                     {screen.name}
@@ -74,11 +92,10 @@ export default function SobreNosotrosPage() {
 
       {/* Main Content */}
       <main className="flex-1 relative">
-        {/* Imagen de fondo */}
         <div className="w-full h-[calc(100vh-80px)] relative">
           <Image
-            src="/imagenfondorm.svg"
-            alt="Modern gym interior with treadmills and weight equipment"
+            src="/"
+            alt=""
             fill
             className="object-cover"
             priority
@@ -86,27 +103,60 @@ export default function SobreNosotrosPage() {
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
-        {/* Contenido Sobre Nosotros encima de la imagen */}
+        {/* Sobre Nosotros */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 space-y-6 z-10 max-w-3xl mx-auto">
-          <h2 className="text-white text-4xl md:text-5xl font-bold tracking-wide">
+          <h2 className="text-black text-4xl md:text-5xl font-bold tracking-wide">
             SOBRE NOSOTROS
           </h2>
-          <p className="text-white text-lg md:text-xl">
+          <p className="text-black text-lg md:text-xl">
             Somos un centro de entrenamiento formado por profesores de Educación
             física en el cual ofrecemos clases de entrenamiento funcional y
             musculación para todo tipo de personas.
           </p>
-          <p className="text-white text-base md:text-lg">
-            Con un objetivo primordial: mejorar la salud y calidad de vida
+          <p className="text-black text-base md:text-lg">
+            CON UN OBJETIVO PRIMORDIAL: MEJORAR LA SALUD Y CALIDAD DE VIDA
           </p>
-          <p className="text-white text-base md:text-lg">
+          <p className="text-black text-base md:text-lg">
             En nuestro centro de entrenamiento, nos enfocamos en la seguridad y
-            el bienestar de nuestros alumnos. Los entrenadores están capacitados
+            el bienestar de nuestros alumnos. 
+            Los entrenadores están capacitados
             para adaptar las clases a tus necesidades y objetivos individuales,
             asegurándonos de que te sientas cómodo y motivado en todo momento.
           </p>
         </div>
       </main>
+
+      {/* Sección Testimonios */}
+      <section className="bg-[#0f1121] py-16 px-6 text-center">
+        <h2 className="text-4xl font-bold text-[#ff0066] mb-10">
+          Testimonios de nuestros alumnos
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {testimonios.map((t, i) => (
+            <div
+              key={i}
+              className="bg-[#181b2e] text-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform duration-300"
+            >
+              <div className="flex justify-center mb-3">
+                {[...Array(t.estrellas)].map((_, idx) => (
+                  <Star key={idx} className="text-yellow-400 w-5 h-5" fill="gold" />
+                ))}
+              </div>
+              <p className="italic mb-4">“{t.texto}”</p>
+              <h4 className="font-semibold text-[#ff0066]">{t.nombre}</h4>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8">
+          <a
+            href="https://www.google.com/search?q=Rm+training+Opiniones"
+            target="_blank"
+            className="text-[#ff0066] hover:underline font-medium"
+          >
+            Ver más opiniones en Google →
+          </a>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-[#181b2e] text-center text-sm py-4 border-t border-[#ff0066]">
