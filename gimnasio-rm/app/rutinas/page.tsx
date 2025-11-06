@@ -1,11 +1,13 @@
 "use client";
-import { Menu, User } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function RMTrainingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+
   const screens = [
     { name: "Inicio", route: "/inicio" },
     { name: "Contactos", route: "/contactos" },
@@ -15,26 +17,35 @@ export default function RMTrainingPage() {
     { name: "Merchandising", route: "/merchandising" },
   ];
 
+  // PLANES FICTICIOS
+  const plans = [
+    {
+      title: "Full Body en Casa",
+      desc: "Entrenamiento completo de cuerpo en casa sin equipamiento. Ideal para principiantes o quienes buscan mantenerse activos.",
+    },
+    {
+      title: "Funcional Avanzado",
+      desc: "Rutina exigente con ejercicios funcionales, ideal para quienes buscan mejorar fuerza, agilidad y resistencia.",
+    },
+    {
+      title: "HIIT Express",
+      desc: "Sesiones de alta intensidad en solo 20 minutos. Perfecto para quienes tienen poco tiempo y quieren resultados rápidos.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#181b2e] ">
       {/* Header */}
-      <header className="bg-[#181b2e] px-6 py-4 flex items-center justify-between relative">
-        {/* Logo Left */}
-        <div className="flex items-center">
+      <header className="bg-[#181b2e] px-6 py- flex items-center justify-end relative border-b border-[#ff0066] ">
+        <div className="flex items-center border-[#ff0066]">
           <div className="w-24 h-24 relative">
-            <Image
-              src="/red-and-black-circular-gym-logo-with-rm-letters.jpg"
-              alt="RM Logo"
-              width={96}
-              height={96}
-              className="object-contain"
-            />
+           
           </div>
         </div>
 
         {/* Center Logo */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <div className="text-center">
+        <div className="absolute left-1/2 -translate-x-1/2 ">
+          <div className="text-center ">
             <h1 className="text-[#ff0066] text-5xl font-bold tracking-tight leading-none">
               RM
             </h1>
@@ -47,9 +58,7 @@ export default function RMTrainingPage() {
         {/* Right Icons */}
         <div className="flex items-center gap-6 relative">
           <button className="text-white hover:text-[#ff0066] transition-colors">
-            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
-              <User className="w-6 h-6 text-[#181b2e]" />
-            </div>
+            
           </button>
           <button
             className="text-white hover:text-[#ff0066] transition-colors"
@@ -76,95 +85,102 @@ export default function RMTrainingPage() {
         </div>
       </header>
 
-      {/* Main Content con imagen de fondo */}
-      <main className="flex-1 relative px-8 py-12">
-        {/* Imagen de fondo */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/imagenfondorm.svg"
-            alt="Modern gym interior with treadmills and weight equipment"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
-
-        {/* Título */}
-        <h2 className="text-center text-5xl font-light tracking-[0.3em] mb-12 text-white relative z-10">
+      {/* Main Content */}
+      <main className="flex-1 relative px-8 py-12 text-[#ff0066]">
+        <h2 className="text-center text-5xl font-light tracking-[0.3em] mb-12 text-ff0066 font-semibold">
           RUTINAS
         </h2>
 
-        {/* Image Grid */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] relative">
-              <Image
-                src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
-                alt="Group workout"
-                fill
-                className="object-cover"
-              />
-            </div>
+        {/* UNA FILA CON TRES COLUMNAS */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-[#d9d9d9] p-6 shadow-lg rounded-lg">
+            <Image
+              src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
+              alt="Group workout"
+              width={600}
+              height={400}
+              className="object-cover rounded w-full h-auto"
+            />
           </div>
-
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] relative">
-              <Image
-                src="/people-using-weight-training-machines-in-gym.jpg"
-                alt="Weight training"
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="bg-[#d9d9d9] p-6 shadow-lg rounded-lg">
+            <Image
+              src="/people-using-weight-training-machines-in-gym.jpg"
+              alt="Weight training"
+              width={600}
+              height={400}
+              className="object-cover rounded w-full h-auto"
+            />
           </div>
-
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] relative">
-              <Image
-                src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
-                alt="Group workout"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Row 2 */}
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] relative">
-              <Image
-                src="/people-using-weight-training-machines-in-gym.jpg"
-                alt="Weight training"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] relative">
-              <Image
-                src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
-                alt="Group workout"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] relative">
-              <Image
-                src="/people-using-weight-training-machines-in-gym.jpg"
-                alt="Weight training"
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="bg-[#d9d9d9] p-6 shadow-lg rounded-lg">
+            <Image
+              src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
+              alt="Group workout"
+              width={600}
+              height={400}
+              className="object-cover rounded w-full h-auto"
+            />
           </div>
         </div>
+
+        {/* PLANES DE ENTRENAMIENTO */}
+        <section className="mt-24">
+          <h2 className="text-center text-4xl font-semibold text-[#ff0066] mb-8 tracking-wide">
+            Planes de Entrenamiento a Distancia
+          </h2>
+
+          <p className="text-center text-white text-lg mb-12 max-w-3xl mx-auto">
+            Entrená desde cualquier lugar con nuestros planes personalizados.
+            Cada programa está diseñado por nuestros profesionales para ayudarte
+            a alcanzar tus objetivos, sin importar la distancia.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+            {plans.map((plan) => (
+              <div
+                key={plan.title}
+                className="bg-[#d9d9d9] rounded-lg shadow-lg overflow-hidden flex flex-col"
+              >
+                <div className="p-6 flex flex-col flex-1 text-[#181b2e]">
+                  <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
+                  <p className="mb-4 flex-1">{plan.desc}</p>
+                  <button
+                    onClick={() => setSelectedPlan(plan.title)}
+                    className="mt-auto bg-[#ff0066] text-white font-semibold py-2 px-4 rounded hover:bg-[#e0005c] transition"
+                  >
+                    Iniciar Plan
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
+
+      {/* MODAL: se muestra solo si hay plan seleccionado */}
+      {selectedPlan && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#181b2e] text-white rounded-2xl p-8 w-[90%] max-w-2xl relative shadow-2xl">
+            <button
+              onClick={() => setSelectedPlan(null)}
+              className="absolute top-4 right-4 text-[#ff0066] hover:text-white transition"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <h3 className="text-3xl font-bold text-[#ff0066] mb-4">
+              {selectedPlan}
+            </h3>
+            <p className="text-lg leading-relaxed">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              vestibulum lorem ac odio fermentum, non interdum ex fermentum.
+              Vivamus laoreet lectus sed diam tincidunt, in facilisis metus
+              venenatis. Curabitur non justo ac nisl convallis gravida. Aenean
+              commodo, sapien nec luctus ultrices, enim urna suscipit lacus, ac
+              egestas magna leo et libero.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

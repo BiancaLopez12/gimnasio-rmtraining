@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, User, Star } from "lucide-react";
+import { Menu, Star, Gift, TrendingUp } from "lucide-react";
 
 export default function SobreNosotrosPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,7 +16,6 @@ export default function SobreNosotrosPage() {
     { name: "Merchandising", route: "/merchandising" },
   ];
 
-  // Testimonios tomados manualmente de Google
   const testimonios = [
     {
       nombre: "Martina G.",
@@ -38,19 +37,34 @@ export default function SobreNosotrosPage() {
     },
   ];
 
+  const novedades = [
+    {
+      icono: <Gift className="w-8 h-8 text-[#ff0066]" />,
+      titulo: "Promo 2x1 en Clases Funcionales",
+      descripcion:
+        "Traé a un amigo y ambos obtienen un 50% de descuento en su primer mes.",
+    },
+    {
+      icono: <TrendingUp className="w-8 h-8 text-[#ff0066]" />,
+      titulo: "Nueva Rutina de Alta Intensidad",
+      descripcion:
+        "Sumate a nuestra nueva clase HIIT para quemar calorías y mejorar tu resistencia.",
+    },
+    {
+      icono: <Gift className="w-8 h-8 text-[#ff0066]" />,
+      titulo: "Descuento por Referidos",
+      descripcion:
+        "Por cada persona que recomiendes, obtenés un 20% de descuento en tu próxima cuota.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#0f1121] text-white">
       {/* Header */}
       <header className="bg-[#181b2e] px-6 py-4 flex items-center justify-between relative">
         <div className="flex items-center">
           <div className="w-24 h-24 relative">
-            <Image
-              src="/red-and-black-circular-gym-logo-with-rm-letters.jpg"
-              alt=""
-              width={96}
-              height={96}
-              className="object-contain"
-            />
+            
           </div>
         </div>
 
@@ -78,7 +92,7 @@ export default function SobreNosotrosPage() {
               {screens.map((screen, index) => (
                 <Link key={index} href={screen.route}>
                   <button
-                    className="w-full px-4 py-3 text-left text-black hover:bg-[#837a88]/50 border-b border-[#837a88]/20 last:border-b-0"
+                    className="w-full px-4 py-3 text-left text-white hover:bg-[#837a88]/30 border-b border-[#837a88]/20 last:border-b-0"
                     onClick={() => setMenuOpen(false)}
                   >
                     {screen.name}
@@ -90,44 +104,56 @@ export default function SobreNosotrosPage() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 relative">
-        <div className="w-full h-[calc(100vh-80px)] relative">
-          <Image
-            src="/"
-            alt=""
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
+      {/* SOBRE NOSOTROS */}
+      <main className="flex-1 bg-[#0f1121] text-white">
+        <section className="py-20 px-6 text-center max-w-4xl mx-auto">
+          {/* Título con línea decorativa */}
+          <div className="inline-block mb-8 relative">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-wide text-[#ff0066] relative z-10">
+              SOBRE NOSOTROS
+            </h2>
+            <span className="absolute left-0 bottom-0 w-full h-[4px] bg-[#ff0066]/50 animate-pulse"></span>
+          </div>
 
-        {/* Sobre Nosotros */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 space-y-6 z-10 max-w-3xl mx-auto">
-          <h2 className="text-black text-4xl md:text-5xl font-bold tracking-wide">
-            SOBRE NOSOTROS
-          </h2>
-          <p className="text-black text-lg md:text-xl">
-            Somos un centro de entrenamiento formado por profesores de Educación
-            física en el cual ofrecemos clases de entrenamiento funcional y
-            musculación para todo tipo de personas.
-          </p>
-          <p className="text-black text-base md:text-lg">
-            CON UN OBJETIVO PRIMORDIAL: MEJORAR LA SALUD Y CALIDAD DE VIDA
-          </p>
-          <p className="text-black text-base md:text-lg">
-            En nuestro centro de entrenamiento, nos enfocamos en la seguridad y
-            el bienestar de nuestros alumnos. 
-            Los entrenadores están capacitados
-            para adaptar las clases a tus necesidades y objetivos individuales,
-            asegurándonos de que te sientas cómodo y motivado en todo momento.
-          </p>
-        </div>
+          <div className="space-y-6 text-lg leading-relaxed">
+            <p>
+              Somos un centro de entrenamiento formado por profesores de{" "}
+              <span className="text-[#ff0066] font-semibold">
+                Educación Física
+              </span>, en el cual ofrecemos clases de entrenamiento funcional y
+              musculación para todo tipo de personas.
+            </p>
+
+            <p className="italic text-gray-300">
+              Nuestro principal objetivo es{" "}
+              <span className="text-[#ff0066] font-semibold">
+                mejorar tu salud y calidad de vida
+              </span>{" "}
+              a través del movimiento, la constancia y la motivación diaria.
+            </p>
+
+            <p>
+              En RM Training nos enfocamos en la{" "}
+              <span className="text-[#ff0066] font-semibold">
+                seguridad y el bienestar
+              </span>{" "}
+              de nuestros alumnos. Nuestros entrenadores están capacitados para
+              adaptar las clases a tus necesidades y objetivos individuales,
+              asegurándonos de que te sientas cómodo y motivado en todo momento.
+            </p>
+
+            {/* Frase destacada */}
+            <div className="mt-10 p-6 bg-[#181b2e] rounded-2xl shadow-lg border border-[#ff0066]/40 hover:scale-105 transition-transform duration-300">
+              <p className="text-xl md:text-2xl font-semibold text-[#ff0066]">
+                “Entrená con propósito, superate cada día.”
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
 
-      {/* Sección Testimonios */}
-      <section className="bg-[#0f1121] py-16 px-6 text-center">
+      {/* TESTIMONIOS */}
+      <section className="bg-[#0f1121] py-16 px-6 text-center border-t border-[#ff0066]/30">
         <h2 className="text-4xl font-bold text-[#ff0066] mb-10">
           Testimonios de nuestros alumnos
         </h2>
@@ -158,7 +184,28 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* NOVEDADES Y PROMOCIONES */}
+      <section className="bg-[#181b2e] py-16 px-6 text-center border-t border-[#ff0066]/40">
+        <h2 className="text-4xl font-bold text-[#ff0066] mb-10">
+          Novedades y Promociones Exclusivas
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {novedades.map((n, i) => (
+            <div
+              key={i}
+              className="bg-[#0f1121] text-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform duration-300"
+            >
+              <div className="flex justify-center mb-4">{n.icono}</div>
+              <h3 className="text-xl font-semibold mb-2 text-[#ff0066]">
+                {n.titulo}
+              </h3>
+              <p className="text-gray-300">{n.descripcion}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
       <footer className="bg-[#181b2e] text-center text-sm py-4 border-t border-[#ff0066]">
         <p className="text-gray-400">
           © {new Date().getFullYear()} RM Training. Todos los derechos

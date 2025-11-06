@@ -17,18 +17,16 @@ export default function RMTrainingPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#181b2e] text-white">
       {/* Header */}
-      <header className="bg-[#181b2e] px-6 py-2 flex items-center justify-between relative">
-        {/* Center Logo */}
-        <div className="text-center">
-          <div className="text-[#ef4444] font-bold text-6xl tracking-wider">
-            RM
-          </div>
-          <div className="text-[#ef4444] font-semibold text-2xl tracking-widest">
+      <header className="bg-[#181b2e] px-6 py-6 flex items-center justify-end relative border-b border-[#ff0066]">
+        <div className="absolute left-1/2 -translate-x-1/2 text-center">
+          <h1 className="text-[#ff0066] text-5xl font-bold leading-none">RM</h1>
+          <p className="text-[#ff0066] text-xl font-medium tracking-wide">
             training
-          </div>
+          </p>
         </div>
+
 
         {/* Right Icons */}
         <div className="flex items-center gap-4 relative">
@@ -58,21 +56,15 @@ export default function RMTrainingPage() {
       </header>
 
       {/* Main Content Area con imagen de fondo */}
-      <main className="relative flex-1 px-12 py-12">
+      <main className="relative flex-1 px-12 py-12 bg-[#181b2e]">
         {/* Imagen de fondo */}
         <div className="absolute inset-0 -z-10">
-          <Image
-            src="/imagenfondorm.svg"
-            alt="Modern gym interior with treadmills and weight equipment"
-            fill
-            className="object-cover"
-            priority
-          />
+          
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         {/* Título */}
-        <h1 className="text-center text-5xl font-light tracking-[0.3em] mb-16 text-white relative z-10">
+        <h1 className="text-center text-5xl font-extrabold tracking-[0.3em] mb-16 text-[#ff0066] relative z-10">
           HORARIOS Y CLASES
         </h1>
 
@@ -83,7 +75,7 @@ export default function RMTrainingPage() {
             <div className="aspect-[4/3] mb-4 overflow-hidden">
               <img
                 src="/people-doing-push-ups-in-gym.jpg"
-                alt="Maquinas class"
+                alt=""
                 className="w-full h-full object-cover"
               />
             </div>
@@ -98,7 +90,7 @@ export default function RMTrainingPage() {
             <div className="aspect-[4/3] mb-4 overflow-hidden">
               <img
                 src="/people-training-on-gym-machines.jpg"
-                alt="Funcional class"
+                alt=""
                 className="w-full h-full object-cover"
               />
             </div>
@@ -113,7 +105,7 @@ export default function RMTrainingPage() {
             <div className="aspect-[4/3] mb-4 overflow-hidden">
               <img
                 src="/people-doing-push-ups-in-gym.jpg"
-                alt="Maquinas class"
+                alt=""
                 className="w-full h-full object-cover"
               />
             </div>
@@ -123,50 +115,7 @@ export default function RMTrainingPage() {
             <p className="text-sm text-[#1e1e1e]">Lunes, miercoles y viernes</p>
           </div>
 
-          {/* Card 4 - Funcional */}
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] mb-4 overflow-hidden">
-              <img
-                src="/people-training-on-gym-machines.jpg"
-                alt="Funcional class"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-xl font-semibold mb-1 text-[#1e1e1e]">
-              FUNCIONAL
-            </h3>
-            <p className="text-sm text-[#1e1e1e]">Martes y jueves</p>
-          </div>
-
-          {/* Card 5 - Maquinas */}
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] mb-4 overflow-hidden">
-              <img
-                src="/people-doing-push-ups-in-gym.jpg"
-                alt="Maquinas class"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-xl font-semibold mb-1 text-[#1e1e1e]">
-              MAQUINAS
-            </h3>
-            <p className="text-sm text-[#1e1e1e]">Lunes, miercoles y viernes</p>
-          </div>
-
-          {/* Card 6 - Funcional */}
-          <div className="bg-[#d9d9d9] p-6 shadow-lg">
-            <div className="aspect-[4/3] mb-4 overflow-hidden">
-              <img
-                src="/people-training-on-gym-machines.jpg"
-                alt="Funcional class"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-xl font-semibold mb-1 text-[#1e1e1e]">
-              FUNCIONAL
-            </h3>
-            <p className="text-sm text-[#1e1e1e]">Martes y jueves</p>
-          </div>
+          
         </div>
       </main>
     </div>
