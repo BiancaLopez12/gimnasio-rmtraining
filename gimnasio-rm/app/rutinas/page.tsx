@@ -1,12 +1,50 @@
 "use client";
+
 import { Menu, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+/* ------------------ SLIDER DE RUTINAS ------------------ */
+import { motion, AnimatePresence } from "framer-motion";
+
+const rutinas = [
+  {
+    title: "Rutina Full Body",
+    image: "/group-of-people-doing-push-up-exercises-in-gym.jpg",
+    ejercicios: [
+      "Sentadilla 3x15",
+      "Flexiones 3x12",
+      "Plancha 3x30s",
+      "Zancadas 3x12 por pierna",
+    ],
+  },
+  {
+    title: "Rutina de Fuerza",
+    image: "/people-using-weight-training-machines-in-gym.jpg",
+    ejercicios: [
+      "Peso muerto 4x10",
+      "Press de pecho 4x8",
+      "Remo con mancuerna 3x12",
+      "Press militar 3x10",
+    ],
+  },
+  {
+    title: "Rutina HIIT",
+    image: "/group-of-people-doing-push-up-exercises-in-gym.jpg",
+    ejercicios: [
+      "Burpees 30s",
+      "Mountain climbers 30s",
+      "Saltos en tijera 30s",
+      "Descanso 30s x 4 rondas",
+    ],
+  },
+];
+
 export default function RMTrainingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [indexRutina, setIndexRutina] = useState(0);
 
   const screens = [
     { name: "Inicio", route: "/inicio" },
@@ -16,6 +54,14 @@ export default function RMTrainingPage() {
     { name: "Rutinas", route: "/rutinas" },
     { name: "Merchandising", route: "/merchandising" },
   ];
+
+  const nextRutina = () => {
+    setIndexRutina((prev) => (prev + 1) % rutinas.length);
+  };
+
+  const prevRutina = () => {
+    setIndexRutina((prev) => (prev - 1 + rutinas.length) % rutinas.length);
+  };
 
   // PLANES FICTICIOS
   const plans = [
@@ -33,14 +79,28 @@ export default function RMTrainingPage() {
     },
   ];
 
+  // PLANES DE ALIMENTACIÓN
+  const foodPlans = [
+    {
+      title: "Pérdida de Peso Saludable",
+      desc: "Plan equilibrado diseñado para promover una reducción de peso sostenible sin perder masa muscular.",
+    },
+    {
+      title: "Ganancia de Masa Muscular",
+      desc: "Alimentación enfocada en aumentar masa muscular, combinando proteína de alta calidad y carbohidratos complejos.",
+    },
+    {
+      title: "Plan Energético Deportivo",
+      desc: "Ideal para personas activas o deportistas que necesitan mejorar rendimiento y recuperación.",
+    },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-[#181b2e] ">
       {/* Header */}
       <header className="bg-[#181b2e] px-6 py- flex items-center justify-end relative border-b border-[#ff0066] ">
         <div className="flex items-center border-[#ff0066]">
-          <div className="w-24 h-24 relative">
-           
-          </div>
+          <div className="w-24 h-24 relative"></div>
         </div>
 
         {/* Center Logo */}
@@ -57,9 +117,7 @@ export default function RMTrainingPage() {
 
         {/* Right Icons */}
         <div className="flex items-center gap-6 relative">
-          <button className="text-white hover:text-[#ff0066] transition-colors">
-            
-          </button>
+          <button className="text-white hover:text-[#ff0066] transition-colors"></button>
           <button
             className="text-white hover:text-[#ff0066] transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -87,42 +145,58 @@ export default function RMTrainingPage() {
 
       {/* Main Content */}
       <main className="flex-1 relative px-8 py-12 text-[#ff0066]">
-        <h2 className="text-center text-5xl font-light tracking-[0.3em] mb-12 text-ff0066 font-semibold">
-          RUTINAS
-        </h2>
+        <h3 className="text-center text-5xl font-light tracking-[0.3em] mb-12 text-ff0066 font-semibold">
+PLANES DE ENTRENAMIENTO
+        </h3>
 
-        {/* UNA FILA CON TRES COLUMNAS */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[#d9d9d9] p-6 shadow-lg rounded-lg">
-            <Image
-              src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
-              alt="Group workout"
-              width={600}
-              height={400}
-              className="object-cover rounded w-full h-auto"
-            />
+        {/* ---------- 🔥 SLIDER DE RUTINAS (NUEVO) ---------- */}
+        <div className="max-w-4xl mx-auto flex flex-col items-center mb-16">
+          <div className="flex justify-between w-full mb-4">
+            <button
+              onClick={prevRutina}
+              className="text-[#ff0066] hover:text-white transition font-bold text-2xl"
+            >
+              ⬅
+            </button>
+
+            <button
+              onClick={nextRutina}
+              className="text-[#ff0066] hover:text-white transition font-bold text-2xl"
+            >
+              ➡
+            </button>
           </div>
-          <div className="bg-[#d9d9d9] p-6 shadow-lg rounded-lg">
-            <Image
-              src="/people-using-weight-training-machines-in-gym.jpg"
-              alt="Weight training"
-              width={600}
-              height={400}
-              className="object-cover rounded w-full h-auto"
-            />
-          </div>
-          <div className="bg-[#d9d9d9] p-6 shadow-lg rounded-lg">
-            <Image
-              src="/group-of-people-doing-push-up-exercises-in-gym.jpg"
-              alt="Group workout"
-              width={600}
-              height={400}
-              className="object-cover rounded w-full h-auto"
-            />
-          </div>
+
+          <AnimatePresence>
+            <motion.div
+              key={indexRutina}
+              initial={{ opacity: 0, x: 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -80 }}
+              transition={{ duration: 0.5 }}
+              className="bg-[#d9d9d9] rounded-xl p-8 shadow-xl w-full"
+            >
+              <h3 className="text-center text-3xl text-[#181b2e] font-bold mb-6">
+                {rutinas[indexRutina].title}
+              </h3>
+
+             
+
+              <ul className="text-[#181b2e] text-xl space-y-2 font-medium">
+                {rutinas[indexRutina].ejercicios.map((ejer, i) => (
+                  <li
+                    key={i}
+                    className="bg-white/60 p-3 rounded-lg shadow"
+                  >
+                    {ejer}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* PLANES DE ENTRENAMIENTO */}
+        {/* ---------------- PLANES DE ENTRENAMIENTO ---------------- */}
         <section className="mt-24">
           <h2 className="text-center text-4xl font-semibold text-[#ff0066] mb-8 tracking-wide">
             Planes de Entrenamiento a Distancia
@@ -154,9 +228,42 @@ export default function RMTrainingPage() {
             ))}
           </div>
         </section>
+
+        {/* ---------------- PLANES DE ALIMENTACIÓN ---------------- */}
+        <section className="mt-24">
+          <h2 className="text-center text-4xl font-semibold text-[#ff0066] mb-8 tracking-wide">
+            Planes de Alimentación Personalizados
+          </h2>
+
+          <p className="text-center text-white text-lg mb-12 max-w-3xl mx-auto">
+            Complementá tu entrenamiento con un plan de alimentación diseñado
+            especialmente para tus objetivos: bajar de peso, ganar músculo o
+            mejorar tu rendimiento.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+            {foodPlans.map((plan) => (
+              <div
+                key={plan.title}
+                className="bg-[#d9d9d9] rounded-lg shadow-lg overflow-hidden flex flex-col"
+              >
+                <div className="p-6 flex flex-col flex-1 text-[#181b2e]">
+                  <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
+                  <p className="mb-4 flex-1">{plan.desc}</p>
+                  <button
+                    onClick={() => setSelectedPlan(plan.title)}
+                    className="mt-auto bg-[#ff0066] text-white font-semibold py-2 px-4 rounded hover:bg-[#e0005c] transition"
+                  >
+                    Ver Plan
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
-      {/* MODAL: se muestra solo si hay plan seleccionado */}
+      {/* MODAL */}
       {selectedPlan && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-[#181b2e] text-white rounded-2xl p-8 w-[90%] max-w-2xl relative shadow-2xl">
@@ -174,9 +281,7 @@ export default function RMTrainingPage() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
               vestibulum lorem ac odio fermentum, non interdum ex fermentum.
               Vivamus laoreet lectus sed diam tincidunt, in facilisis metus
-              venenatis. Curabitur non justo ac nisl convallis gravida. Aenean
-              commodo, sapien nec luctus ultrices, enim urna suscipit lacus, ac
-              egestas magna leo et libero.
+              venenatis.
             </p>
           </div>
         </div>
