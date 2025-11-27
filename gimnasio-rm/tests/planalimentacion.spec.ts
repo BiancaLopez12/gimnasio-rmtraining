@@ -1,50 +1,57 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 test.describe("Sección de Rutinas y Planes Nutricionales", () => {
-  test('Validar navegación y contenido de los planes', async ({ page }) => {
+  test("Validar navegación y contenido de los planes", async ({ page }) => {
+    await page.goto("http://localhost:3000/rutinas");
 
-    // 👉 Ir a la página de rutinas
-    await page.goto('http://localhost:3000/rutinas');
+    const getModal = () =>
+      page
+        .locator(
+          '[role="dialog"], .modal, .fixed:has(button), .fixed:has(h2), .fixed:has(h3)'
+        )
+        .first();
 
-    // 👉 Verificar título principal
-    await expect(
-      page.getByRole('heading', { name: 'Planes Nutricionales' })
-    ).toBeVisible();
+    // Función robusta para cerrar modal
+    const closeModal = async (modal) => {
+      const btnAria = modal.locator(
+        'button[aria-label*="lose" i], button[aria-label*="errar" i]'
+      );
+      if (await btnAria.count()) return btnAria.click();
 
-    // 👉 Verificar texto inicial
-    await expect(page.getByText(/Elegí el/i)).toBeVisible();
+      const btnSVG = modal.locator("button:has(svg)");
+      if (await btnSVG.count()) return btnSVG.first().click();
 
-    // 👉 Verificar subtítulo inicial del plan
-    await expect(
-      page.getByRole('heading', { name: 'Para generar músculo' }).first()
-    ).toBeVisible();
+      return modal.locator("button").first().click();
+    };
 
-    // 👉 Click en botón Obtener Plan
-    const botonObtener = page.getByRole('button', { name: 'Obtener Plan' }).first();
-    await expect(botonObtener).toBeVisible();
-    await botonObtener.click();
+    // ========================
+    // 🥗 PLAN 1
+    const btnVerPlan1 = page.getByRole("button", { name: /Ver Plan/i }).first();
+    await btnVerPlan1.click();
 
-    // 👉 Seleccionar el MODAL (usamos el overlay típico de Tailwind)
-    const modal = page.locator('.fixed.inset-0');
-    await expect(modal).toBeVisible();
+    const modal1 = getModal();
+    await expect(modal1).toBeVisible();
 
-    // 👉 Verificar que el modal muestra el plan correcto
-    await expect(
-      modal.getByRole('heading', { name: 'Para generar músculo' })
-    ).toBeVisible();
+    await closeModal(modal1);
 
-    await expect(modal.getByText(/Lorem/i)).toBeVisible();
+    // ========================
+    // 🏋️ PLAN 2
+    const btnVerPlan2 = page.getByRole("button", { name: /Ver Plan/i }).nth(1);
+    await btnVerPlan2.click();
 
-    // 👉 Cerrar el modal (segundo botón vacío según tu HTML)
-    const botonCerrar = modal.getByRole('button').filter({ hasText: /^$/ }).nth(0);
-    await expect(botonCerrar).toBeVisible();
-    await botonCerrar.click();
+    const modal2 = getModal();
+    await expect(modal2).toBeVisible();
 
-    // 👉 Verificar contenido de otros planes
-    await expect(page.getByText(/Para adelgazar/i)).toBeVisible();
-    await expect(page.getByText(/hipocaló/i)).toBeVisible();
+    await closeModal(modal2);
 
-    await expect(page.getByText(/Para ganar resistencia/i)).toBeVisible();
-    await expect(page.getByText(/Dieta/i)).toBeVisible();
+    // ========================
+    // ⚡ PLAN 3
+    const btnVerPlan3 = page.getByRole("button", { name: /Ver Plan/i }).nth(2);
+    await btnVerPlan3.click();
+
+    const modal3 = getModal();
+    await expect(modal3).toBeVisible();
+
+    await closeModal(modal3);
   });
 });

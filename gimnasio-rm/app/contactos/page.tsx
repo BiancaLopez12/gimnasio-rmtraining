@@ -6,6 +6,7 @@ import { Instagram, MapPin, Phone, Menu, X, Dumbbell } from "lucide-react";
 
 export default function ContactosPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+
   const screens = [
     { name: "Inicio", route: "/inicio" },
     { name: "Contactos", route: "/contactos" },
@@ -15,7 +16,6 @@ export default function ContactosPage() {
     { name: "Merchandising", route: "/merchandising" },
   ];
 
-  // --- Datos para los servicios ---
   const servicios = [
     {
       id: 1,
@@ -37,7 +37,7 @@ export default function ContactosPage() {
     },
   ];
 
-  const telefonoGym = "5491158800461"; // WhatsApp RM
+  const telefonoGym = "5491158800461";
 
   const generarMensaje = (servicio) => {
     const mensaje = `¡Hola! Quiero asociarme al gimnasio y estoy interesado en el servicio: ${servicio.nombre}.
@@ -50,6 +50,29 @@ Servicio que deseo: ${servicio.nombre}
 Disponibilidad: 
 
 ¡Gracias! 💪`;
+    return encodeURIComponent(mensaje);
+  };
+
+  // ▶ NUEVO: Formulario Clase de Prueba
+  const [form, setForm] = useState({
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    disponibilidad: "",
+    servicio: "",
+  });
+
+  const mensajeClasePrueba = () => {
+    const mensaje = `¡Hola! Quiero solicitar una *Clase de Prueba Gratuita* 🎁💪
+
+Mis datos:
+Nombre: ${form.nombre}
+Apellido: ${form.apellido}
+Número telefónico: ${form.telefono}
+Disponibilidad: ${form.disponibilidad}
+Servicio que deseo probar: ${form.servicio}
+
+¡Gracias!`;
     return encodeURIComponent(mensaje);
   };
 
@@ -69,7 +92,11 @@ Disponibilidad:
             className="text-white hover:text-[#ff0066] transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            {menuOpen ? (
+              <X className="w-8 h-8" />
+            ) : (
+              <Menu className="w-8 h-8" />
+            )}
           </button>
 
           {menuOpen && (
@@ -92,7 +119,6 @@ Disponibilidad:
       {/* Contenido principal */}
       <main className="flex-1 relative flex flex-col items-center justify-center px-4 py-12 text-center">
         <div className="absolute inset-0">
-          
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
@@ -140,7 +166,72 @@ Disponibilidad:
         </div>
       </main>
 
-      {/* 🧩 Sección de Servicios y Asociación */}
+      {/* 🧩 NUEVA SECCIÓN - Clase de Prueba */}
+      <section className="bg-[#1f2238] py-16 px-6 border-t border-[#ff0066]/30">
+        <h2 className="text-4xl font-bold text-center text-[#ff0066] mb-6">
+          ¿Querés probar? 🎁
+        </h2>
+        <p className="text-center text-gray-300 mb-10 text-lg">
+          Completá este formulario y te regalamos la{" "}
+          <span className="text-[#ff0066] font-semibold">
+            primer clase gratis
+          </span>
+          .
+        </p>
+
+        <div className="max-w-lg mx-auto bg-white text-[#181b2e] p-8 rounded-2xl shadow-xl">
+          <div className="grid grid-cols-1 gap-4">
+            <input
+              className="p-3 rounded-lg bg-gray-100"
+              placeholder="Nombre"
+              value={form.nombre}
+              onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+            />
+            <input
+              className="p-3 rounded-lg bg-gray-100"
+              placeholder="Apellido"
+              value={form.apellido}
+              onChange={(e) => setForm({ ...form, apellido: e.target.value })}
+            />
+            <input
+              className="p-3 rounded-lg bg-gray-100"
+              placeholder="Número Telefónico"
+              value={form.telefono}
+              onChange={(e) => setForm({ ...form, telefono: e.target.value })}
+            />
+            <input
+              className="p-3 rounded-lg bg-gray-100"
+              placeholder="Disponibilidad"
+              value={form.disponibilidad}
+              onChange={(e) =>
+                setForm({ ...form, disponibilidad: e.target.value })
+              }
+            />
+            <select
+              className="p-3 rounded-lg bg-gray-100"
+              value={form.servicio}
+              onChange={(e) => setForm({ ...form, servicio: e.target.value })}
+            >
+              <option value="">Seleccionar servicio</option>
+              {servicios.map((s) => (
+                <option key={s.id} value={s.nombre}>
+                  {s.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <a
+            href={`https://wa.me/${telefonoGym}?text=${mensajeClasePrueba()}`}
+            target="_blank"
+            className="block bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold py-3 rounded-xl text-center mt-6 text-lg"
+          >
+            Solicitar Clase de Prueba por WhatsApp
+          </a>
+        </div>
+      </section>
+
+      {/* Servicios existentes */}
       <section className="bg-[#1f2238] py-16 px-6 text-center border-t border-[#ff0066]/30">
         <h2 className="text-4xl font-bold mb-10 text-[#ff0066] flex items-center justify-center gap-2">
           <Dumbbell /> Servicios y Asociación
@@ -158,7 +249,9 @@ Disponibilidad:
               <p className="text-gray-700 mb-6">{servicio.descripcion}</p>
 
               <Link
-                href={`https://wa.me/${telefonoGym}?text=${generarMensaje(servicio)}`}
+                href={`https://wa.me/${telefonoGym}?text=${generarMensaje(
+                  servicio
+                )}`}
                 target="_blank"
                 className="bg-[#25D366] hover:bg-[#1ebe5d] text-white font-medium py-2 rounded-lg flex items-center justify-center gap-2"
               >

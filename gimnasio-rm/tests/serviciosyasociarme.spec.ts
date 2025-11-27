@@ -1,41 +1,76 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 test.describe("Yo como usuario deseo asociarme y ver los servicios disponibles", () => {
-  test('Validar secciones y enlaces de asociación', async ({ page }) => {
-    await page.goto('/contactos'); // o la URL donde está la sección
+  test("Validar secciones y enlaces de asociación", async ({ page }) => {
+    await page.goto("/contactos");
 
-    console.log(await page.content());
+    // -----------------------------------------------
+    // 1️⃣ Verificar título general
+    // -----------------------------------------------
+    const titulo = page.getByRole("heading", { name: /servicios/i });
+    await expect(titulo).toBeVisible();
 
-    // ✅ Verificar título general (cualquier heading que contenga “servicios”)
-    const titulo = page.locator('h1, h2, h3', { hasText: /servicios/i });
-    await expect(titulo.first()).toBeVisible();
+    // -----------------------------------------------
+    // 2️⃣ ENTRENAMIENTO PERSONALIZADO
+    // -----------------------------------------------
+    const hEntrenamiento = page.getByRole("heading", {
+      name: /Entrenamiento Personalizado/i,
+    });
+    await expect(hEntrenamiento).toBeVisible();
 
-    // 🏋️‍♂️ Sección 1: Entrenamiento Personalizado
-    const entrenamiento = page.locator('section:has-text("Entrenamiento Personalizado")');
-    await expect(entrenamiento).toBeVisible();
+    // Subir al contenedor (sea section, div o article)
+    const entrenamiento = hEntrenamiento.locator("..");
+    await expect(entrenamiento).toContainText(
+      "Rutinas diseñadas para alcanzar tus objetivos con seguimiento individual."
+    );
 
-    // 🔽 cambio acá — agregamos .first()
-    const botonEntrenamiento = entrenamiento.getByRole('link', { name: /Asociarme por WhatsApp/i }).first();
-    const hrefEntrenamiento = await botonEntrenamiento.getAttribute('href');
-    await expect(entrenamiento).toContainText('Rutinas diseñadas para alcanzar tus objetivos con seguimiento individual.');
-    await expect(hrefEntrenamiento).toContain('https://wa');
+    const botonEntrenamiento = entrenamiento.getByRole("link", {
+      name: /Asociarme por WhatsApp/i,
+    });
 
-    // 🤸‍♀️ Sección 2: Clases Grupales
-    const grupales = page.locator('section:has-text("Clases Grupales")');
-    await expect(grupales).toBeVisible();
-    await expect(grupales).toContainText('Zumba, CrossFit, Funcional y más. ¡Entrená en grupo y mantenete motivado!');
+    await expect(botonEntrenamiento).toBeVisible();
+    expect(await botonEntrenamiento.getAttribute("href")).toContain(
+      "https://wa"
+    );
 
-    const botonGrupales = grupales.getByRole('link', { name: /Asociarme por WhatsApp/i }).first();
-    const hrefGrupales = await botonGrupales.getAttribute('href');
-    await expect(hrefGrupales).toContain('https://wa');
+    // -----------------------------------------------
+    // 3️⃣ CLASES GRUPALES
+    // -----------------------------------------------
+    const hGrupales = page.getByRole("heading", {
+      name: /Clases Grupales/i,
+    });
+    await expect(hGrupales).toBeVisible();
 
-    // 🥗 Sección 3: Asesoramiento Nutricional
-    const nutricion = page.locator('section:has-text("Asesoramiento Nutricional")');
-    await expect(nutricion).toBeVisible();
-    await expect(nutricion).toContainText('Planes de alimentación saludables para acompañar tu entrenamiento.');
+    const grupales = hGrupales.locator("..");
+    await expect(grupales).toContainText(
+      "Zumba, CrossFit, Funcional y más. ¡Entrená en grupo y mantenete motivado!"
+    );
 
-    const botonNutricion = nutricion.getByRole('link', { name: /Asociarme por WhatsApp/i }).first();
-    const hrefNutricion = await botonNutricion.getAttribute('href');
-    await expect(hrefNutricion).toContain('https://wa');
+    const botonGrupales = grupales.getByRole("link", {
+      name: /Asociarme por WhatsApp/i,
+    });
+
+    await expect(botonGrupales).toBeVisible();
+    expect(await botonGrupales.getAttribute("href")).toContain("https://wa");
+
+    // -----------------------------------------------
+    // 4️⃣ ASESORAMIENTO NUTRICIONAL
+    // -----------------------------------------------
+    const hNutricion = page.getByRole("heading", {
+      name: /Asesoramiento Nutricional/i,
+    });
+    await expect(hNutricion).toBeVisible();
+
+    const nutricion = hNutricion.locator("..");
+    await expect(nutricion).toContainText(
+      "Planes de alimentación saludables para acompañar tu entrenamiento."
+    );
+
+    const botonNutricion = nutricion.getByRole("link", {
+      name: /Asociarme por WhatsApp/i,
+    });
+
+    await expect(botonNutricion).toBeVisible();
+    expect(await botonNutricion.getAttribute("href")).toContain("https://wa");
   });
 });
